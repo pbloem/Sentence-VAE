@@ -130,7 +130,7 @@ def main(args):
 
 
                 # bookkeepeing
-                tracker['ELBO'] = torch.cat((tracker['ELBO'], loss.data))
+                tracker['ELBO'] = torch.cat((tracker['ELBO'], loss.data.unsqueeze(0)))
 
                 if args.tensorboard_logging:
                     writer.add_scalar("%s/ELBO"%split.upper(), loss.data[0], epoch*len(data_loader) + iteration)
