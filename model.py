@@ -147,7 +147,7 @@ class SentenceVAE(nn.Module):
             # save next input
             generations = self._save_sample(generations, input_sequence, sequence_running, t)
 
-            # update gloabl running sequence
+            # update global running sequence
             sequence_mask[sequence_running] = (input_sequence != self.eos_idx).data
             sequence_running = sequence_idx.masked_select(sequence_mask)
 
@@ -157,6 +157,10 @@ class SentenceVAE(nn.Module):
 
             # prune input and hidden state according to local update
             if len(running_seqs) > 0:
+                print(type(input_sequence))
+                print(input_sequence.shape)
+                print(input_sequence)
+
                 input_sequence = input_sequence[running_seqs]
                 hidden = hidden[:, running_seqs]
 
